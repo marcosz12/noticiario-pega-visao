@@ -1,23 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Noticiario.Models.ViewModels;
+using Noticiario.Models;
+using Noticiario.Services;
+using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace Noticiario.Controllers
 {
     public class NewsController : Controller
     {
-        public IActionResult Index()
+        private readonly NewService _service;
+        public NewsController(NewService service)
         {
-            List<New> noticia = new List<New>
-            {
-                new New
-                {
-                    Id = 1,
-                    Title = "Resultado da final da Libertadores 2025",
-                    Category = "Esportes",
-                    Date = new DateTime(2025, 11, 20),
-                    Location = "São Paulo, Brasil"
-                }
+            _service = service;
+        }
 
+        public async Task<IActionResult> Index()
+        {
+            List<New> news = await _service.FindAllAsync();
             return View();
         }
 
@@ -39,6 +39,44 @@ namespace Noticiario.Controllers
             await _service.InsertAsync(news);
             return RedirectToAction(nameof(Index));
         }
+        
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id is null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
+            }
+            var obj = await _service.FindByIdAsync(id.Value);
+            if (obj is null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
+            }
+            return View(obj);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _service.RemoveAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException ex)
+            {
+                return RedirectToAction(nameof(Error), new { message = ex.Message });
+            }
+
+            public IActionResult Error (string message) 
+            {
+                var viewModel = new ErrorViewModel
+                {
+                    Message = message
+                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+                };
+                return View(viewModel);
+            }
+        }
     }
 }

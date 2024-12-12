@@ -1,5 +1,5 @@
-﻿using Noticiario.Models.ViewModels;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Noticiario.Models;
 
 
 namespace Noticiario.Data

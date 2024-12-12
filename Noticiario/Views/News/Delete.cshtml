@@ -1,0 +1,28 @@
+﻿@model New
+
+@{
+    ViewData["Title"] = "Apagar Notícia";
+}
+
+<h1 class="text-primary-emphasis">@ViewData["Title"]</h1>
+
+<h4 class="lead text-secondary-emphasis mb-4">Tem certeza que deseja apagar esta notícia?</h4>
+<div>
+    <h4 class="text-primary-emphasis">Notícia</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2 text-primary-emphasis">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10 text-primary-emphasis">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Apagar" class="btn btn-outline-danger" /> |
+        <a asp-action="Index" class="text-primary">Voltar para a lista</a>
+    </form>
+</div>
+   

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Noticiario.Data;
+using Noticiario.Services;
 
 namespace Noticiario
 {
@@ -17,15 +18,17 @@ namespace Noticiario
                 options.UseMySql(
                     builder
                         .Configuration
-                        .GetConnectionString("BookstoreContext"),
+                        .GetConnectionString("NewsContext"),
                     ServerVersion
                         .AutoDetect(
                             builder
                                 .Configuration
-                                .GetConnectionString("BookstoreContext")
+                                .GetConnectionString("NewsContext")
                         )
                 );
             });
+
+            builder.Services.AddScoped<NewService>();
 
             var app = builder.Build();
 
