@@ -8,24 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\ana.conceicao2\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\noticiario-pega-visao\\Noticiario\\Noticiario.csproj",
+      "projectUniqueName": "C:\\Users\\ana.conceicao2\\noticiario-pega-visao\\Noticiario\\Noticiario.csproj",
       "projectName": "Noticiario",
-      "projectPath": "C:\\Users\\User\\noticiario-pega-visao\\Noticiario\\Noticiario.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\noticiario-pega-visao\\Noticiario\\obj\\",
+      "projectPath": "C:\\Users\\ana.conceicao2\\noticiario-pega-visao\\Noticiario\\Noticiario.csproj",
+      "packagesPath": "C:\\Users\\ana.conceicao2\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ana.conceicao2\\noticiario-pega-visao\\Noticiario\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\ana.conceicao2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
