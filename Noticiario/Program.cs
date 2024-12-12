@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Noticiario.Data;
+
 namespace Noticiario
 {
     public class Program
@@ -8,6 +11,21 @@ namespace Noticiario
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<NewsContext>(options =>
+            {
+                options.UseMySql(
+                    builder
+                        .Configuration
+                        .GetConnectionString("BookstoreContext"),
+                    ServerVersion
+                        .AutoDetect(
+                            builder
+                                .Configuration
+                                .GetConnectionString("BookstoreContext")
+                        )
+                );
+            });
 
             var app = builder.Build();
 

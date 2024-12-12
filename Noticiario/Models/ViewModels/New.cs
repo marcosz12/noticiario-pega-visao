@@ -17,6 +17,7 @@ namespace Noticiario.Models.ViewModels
 
         public New()
         {
+
         }
 
         public New(int id, string title, string category, DateTime date, string location)
