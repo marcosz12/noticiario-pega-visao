@@ -17,7 +17,6 @@ namespace Noticiario.Controllers
                     Date = new DateTime(2025, 11, 20),
                     Location = "São Paulo, Brasil"
                 }
-            };
 
             return View();
         }
