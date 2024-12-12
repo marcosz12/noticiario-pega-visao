@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Noticiario.Models.ViewModels
 {
@@ -7,10 +6,13 @@ namespace Noticiario.Models.ViewModels
     {
         public int Id { get; set; }
         [Display(Name = "Título")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Title { get; set; }
         [Display(Name ="Categoria")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Category { get; set; }
         [Display(Name ="Data")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public DateTime Date { get; set; }
         [Display(Name = "Local")]
         public string Location { get; set; }
