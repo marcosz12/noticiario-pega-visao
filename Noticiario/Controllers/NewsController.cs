@@ -21,5 +21,25 @@ namespace Noticiario.Controllers
 
             return View();
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(New news)
+        {
+            
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            await _service.InsertAsync(news);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
