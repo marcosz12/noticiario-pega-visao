@@ -10,6 +10,6 @@ namespace Noticiario.Data
         {
 
         }
-        public DbSet<New> News { get; set; }
+        public DbSet<NewsItem> News { get; set; }
     }
 }

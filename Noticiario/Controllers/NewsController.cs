@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Noticiario.Models;
+using Noticiario.Models.ViewModels;
 using Noticiario.Services;
+using Noticiario.Services.Exceptions;
 using System.Diagnostics;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -17,8 +19,8 @@ namespace Noticiario.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<New> news = await _service.FindAllAsync();
-            return View();
+            List<NewsItem> news = await _service.FindAllAsync();
+            return View(news);
         }
 
         public IActionResult Create()
@@ -28,7 +30,7 @@ namespace Noticiario.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(New news)
+        public async Task<IActionResult> Create(NewsItem news)
         {
             
             if (!ModelState.IsValid)
@@ -63,20 +65,81 @@ namespace Noticiario.Controllers
                 await _service.RemoveAsync(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch (IntegrityException ex)
+            catch (IntegrityExceptions ex)
             {
                 return RedirectToAction(nameof(Error), new { message = ex.Message });
             }
 
-            public IActionResult Error (string message) 
+        }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
             {
-                var viewModel = new ErrorViewModel
-                {
-                    Message = message
-                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-                };
-                return View(viewModel);
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
+
+            var obj = await _service.FindByIdAsync(id.Value);
+
+            if (obj == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
+            }
+
+            return View(obj);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, NewsItem news)
+        {
+            if (id != news.Id)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id's não condizentes" });
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(news);
+            }
+
+            try
+            {
+                await _service.UpdateAsync(news);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (ApplicationException ex)
+            {
+                return RedirectToAction(nameof(Error), new { message = ex.Message });
+            }
+        }
+
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id is null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
+            }
+            var obj = await _service.FindByIdAsync(id.Value);
+            if (obj is null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
+            }
+
+            return View(obj);
+
+        }
+
+
+        public IActionResult Error (string message) 
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }

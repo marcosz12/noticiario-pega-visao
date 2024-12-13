@@ -1,28 +1,45 @@
-﻿@model New
+﻿@model NewsItem
 
 @{
     ViewData["Title"] = "Apagar Notícia";
 }
 
-<h1 class="text-primary-emphasis">@ViewData["Title"]</h1>
+<div class="container mt-5">
+    <h1 class="text-center text-danger">@ViewData["Title"]</h1>
 
-<h4 class="lead text-secondary-emphasis mb-4">Tem certeza que deseja apagar esta notícia?</h4>
-<div>
-    <h4 class="text-primary-emphasis">Notícia</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2 text-primary-emphasis">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10 text-primary-emphasis">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-    </dl>
+    <div class="alert alert-warning text-center mb-4">
+        <h4 class="lead">Tem certeza que deseja apagar esta notícia?</h4>
+    </div>
 
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Apagar" class="btn btn-outline-danger" /> |
-        <a asp-action="Index" class="text-primary">Voltar para a lista</a>
-    </form>
+    <div class="card shadow-sm rounded-lg">
+        <div class="card-header bg-primary text-white">
+            Detalhes da Notícia
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3 font-weight-bold text-primary">Título:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Title)</dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-3 font-weight-bold text-primary">Categoria:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Category)</dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-3 font-weight-bold text-primary">Data:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Date)</dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-3 font-weight-bold text-primary">Local:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Location)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <form asp-action="Delete" class="d-inline">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger btn-lg">Apagar Notícia</button>
+        </form>
+        <a href="@Url.Action("Index", "News")" class="btn btn-outline-secondary btn-lg ml-3">Voltar para a Lista</a>
+    </div>
 </div>
-   

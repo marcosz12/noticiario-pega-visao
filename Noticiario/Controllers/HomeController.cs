@@ -1,21 +1,29 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Noticiario.Data;
 using Noticiario.Models;
+using Noticiario.Models.ViewModels;
+using Noticiario.Services;
 using System.Diagnostics;
+
 
 namespace Noticiario.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly NewService _service;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, NewService service)
         {
             _logger = logger;
+            _service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<NewsItem> news = await _service.FindAllAsync();
+            return View(news);
         }
 
         public IActionResult Privacy()

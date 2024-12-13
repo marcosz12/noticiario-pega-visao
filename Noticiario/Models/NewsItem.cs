@@ -2,7 +2,7 @@
 
 namespace Noticiario.Models
 {
-    public class New
+    public class NewsItem
     {
         public int Id { get; set; }
         [Display(Name = "Título")]
@@ -17,12 +17,11 @@ namespace Noticiario.Models
         [Display(Name = "Local")]
         public string Location { get; set; }
 
-        public New()
+        public NewsItem()
         {
-
         }
 
-        public New(int id, string title, string category, DateTime date, string location)
+        public NewsItem(int id, string title, string category, DateTime date, string location)
         {
             Id = id;
             Title = title;
