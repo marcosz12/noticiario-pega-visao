@@ -1,5 +1,5 @@
-﻿using Noticiario.Models.ViewModels;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Noticiario.Models;
 
 
 namespace Noticiario.Data
@@ -10,6 +10,6 @@ namespace Noticiario.Data
         {
 
         }
-        public DbSet<New> News { get; set; }
+        public DbSet<NewsItem> News { get; set; }
     }
 }

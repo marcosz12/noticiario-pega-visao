@@ -1,0 +1,37 @@
+﻿@model Noticiario.Models.NewsItem
+
+@{
+    ViewData["Title"] = "Detalhes da Notícia";
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Detalhes da Notícia</h1>
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            Informações da Notícia
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-sm-3 font-weight-bold">Título:</div>
+                <div class="col-sm-9">@Model.Title</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 font-weight-bold">Categoria:</div>
+                <div class="col-sm-9">@Model.Category</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 font-weight-bold">Data:</div>
+                <div class="col-sm-9">@Model.Date.ToString("dd/MM/yyyy")</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 font-weight-bold">Local:</div>
+                <div class="col-sm-9">@Model.Location</div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Index" asp-controller="News" class="btn btn-secondary">Voltar</a>
+            <a asp-action="Edit" asp-controller="News" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+            <a asp-action="Delete" asp-controller="News" asp-route-id="@Model.Id" class="btn btn-danger">Excluir</a>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Noticiario.Data;
+using Noticiario.Services;
+using Noticiario.Services.Seeding;
 
 namespace Noticiario
 {
@@ -17,28 +19,40 @@ namespace Noticiario
                 options.UseMySql(
                     builder
                         .Configuration
-                        .GetConnectionString("BookstoreContext"),
+                        .GetConnectionString("NewsContext"),
                     ServerVersion
                         .AutoDetect(
                             builder
                                 .Configuration
-                                .GetConnectionString("BookstoreContext")
+                                .GetConnectionString("NewsContext")
                         )
                 );
             });
 
+            builder.Services.AddScoped<SeedingService>();
+
+            builder.Services.AddScoped<NewService>();
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
+            else
+            {
+                app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
+            }
 
             app.UseRouting();
 

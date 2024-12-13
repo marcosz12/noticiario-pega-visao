@@ -1,7 +1,56 @@
-﻿@{
+﻿@using System.Linq
+@model IEnumerable<NewsItem>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bem Vindo ao banco de dados do Pega-visão!</h1>
+<div class="text-center mb-5">
+    <h1 class="display-4 font-weight-bold text-primary" style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);">
+        Bem-vindo ao banco de dados do <span class="text-warning">Pega-visão!</span>
+    </h1>
+    <p class="lead text-secondary" style="font-size: 1.2rem;">
+        Aqui você pode acompanhar as últimas notícias sobre esportes, política, tecnologia e muito mais!
+    </p>
+</div>
+
+<div class="container mt-5">
+    @if (Model != null && Model.Any())
+    {
+        <h2 class="text-center font-weight-bold mb-4" style="color: #343a40;">Recentes</h2>
+        <div class="row">
+            @foreach (var newsItem in Model.OrderByDescending(n => n.Date).Take(5))
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg rounded-lg border-light" style="transition: transform 0.2s ease-in-out;">
+                        <a href="@Url.Action("Details", "News", new { id = newsItem.Id })" class="text-decoration-none text-dark">
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-size: 1.1rem; font-weight: bold; color: #333;">@newsItem.Title</h5>
+                                <p class="card-text" style="color: #666; font-size: 0.95rem;">Categoria: <strong>@newsItem.Category</strong></p>
+                                <small class="text-muted">Publicado em: @newsItem.Date.ToString("dd/MM/yyyy")</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning mt-4">
+            <strong>Atenção!</strong> Nenhuma notícia disponível no momento. O banco de dados está vazio ou as notícias ainda não foram carregadas.
+        </div>
+    }
+</div>
+
+<div class="container mt-5">
+    <h3 class="mb-3">O que você pode fazer?</h3>
+    <div class="row">
+        <div class="col-sm-4">
+            <a href="@Url.Action("Create", "News")" class="btn btn-primary btn-block">Adicionar Nova Notícia</a>
+        </div>
+        <div class="col-sm-4">
+            <a href="@Url.Action("Index", "News")" class="btn btn-secondary btn-block">Ver Todas as Notícias</a>
+        </div>
+    </div>
 </div>
